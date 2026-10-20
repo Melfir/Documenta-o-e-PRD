@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Do Requisito à Solução: PRD Studio & Hub de Documentação</title>
+  <meta name="description" content="Plataforma interativa para engenharia de requisitos, elaboração de PRD, rastreabilidade e planejamento de produto.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Barra Superior -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-section">
+        <div class="brand-logo">📐</div>
+        <div class="brand-text">
+          <h1>Do Requisito à Solução</h1>
+          <p>Documentação e Product Requirements Document (PRD)</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Seletor de Estudo de Caso -->
+        <select id="dataset-selector" class="select-input" title="Escolha um Caso de Estudo">
+          <option value="taskmaster">📱 Caso 1: TaskMaster Pro (Wireframes)</option>
+          <option value="ecommerce">🛒 Caso 2: Checkout 1-Clique Express</option>
+        </select>
+
+        <button id="btn-export-md" class="btn btn-secondary" title="Exportar como arquivo Markdown (.md)">
+          ⬇️ Markdown
+        </button>
+        <button id="btn-export-json" class="btn btn-outline" title="Exportar JSON da especificação">
+          { } JSON
+        </button>
+        <button id="btn-print-doc" class="btn btn-outline" title="Imprimir ou Salvar como PDF">
+          🖨️ Imprimir / PDF
+        </button>
+        <button id="theme-toggle" class="btn btn-secondary">
+          ☀️ Modo Claro
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Corpo Principal -->
+  <main class="main-wrapper">
+
+    <!-- Navegação por Abas -->
+    <nav class="tabs-navigation">
+      <button class="tab-btn active" data-tab="view">
+        📄 Visualizador de PRD
+      </button>
+      <button class="tab-btn" data-tab="wireframes">
+        🎨 Telas & Wireframes Físicos
+      </button>
+      <button class="tab-btn" data-tab="flow">
+        🔀 User Flow & Arquitetura
+      </button>
+      <button class="tab-btn" data-tab="edit">
+        ✏️ Editor & Customizador
+      </button>
+      <button class="tab-btn" data-tab="guide">
+        📘 Guia de Requisitos
+      </button>
+    </nav>
+
+    <!-- ABA 1: VISUALIZADOR DE PRD -->
+    <div id="tab-view" class="tab-content active">
+      <div class="workspace-grid">
+        <!-- Sumário Lateral de Navegação -->
+        <aside class="doc-sidebar">
+          <div class="sidebar-title">Índice do Documento</div>
+          <ul class="sidebar-menu">
+            <li><a href="#sec-overview" class="sidebar-link active">1. Visão Geral & Problema</a></li>
+            <li><a href="#sec-kpis" class="sidebar-link">2. Métricas de Sucesso (KPIs)</a></li>
+            <li><a href="#sec-personas" class="sidebar-link">3. Personas & Dores</a></li>
+            <li><a href="#sec-requirements" class="sidebar-link">4. Requisitos Funcionais</a></li>
+            <li><a href="#sec-rnf" class="sidebar-link">5. Requisitos Não Funcionais</a></li>
+            <li><a href="#sec-wireframes-preview" class="sidebar-link">6. Telas & Wireframes</a></li>
+          </ul>
+          <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-light);">
+            <button id="btn-copy-md" class="btn btn-primary" style="width: 100%;">
+              📋 Copiar PRD (Markdown)
+            </button>
+          </div>
+        </aside>
+
+        <!-- Documento Central -->
+        <article class="doc-view-card">
+          <header class="prd-header-banner">
+            <div class="prd-badge-row">
+              <span id="view-status" class="badge badge-status">Aprovado</span>
+              <span id="view-version" class="badge badge-version">v1.2</span>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">
+                Autor: <strong id="view-author">Equipe de Produto</strong> | Atualizado em: <span id="view-updated">2026-10-19</span>
+              </span>
+            </div>
+            <h2 id="view-title" class="prd-title">TaskMaster Pro</h2>
+            <p id="view-subtitle" class="prd-subtitle">Do Bloco de Notas à IDE: Plataforma Ágil de Gestão com Sincronização em Tempo Real</p>
+          </header>
+
+          <!-- 1. Visão Geral -->
+          <section id="sec-overview" class="prd-section">
+            <h3 class="section-heading"><span>1.</span> Visão Geral & Declaração do Problema</h3>
+            <div class="section-content">
+              <h4 style="color: var(--accent-primary); margin-bottom: 0.35rem; font-size: 0.95rem;">Qual é a dor?</h4>
+              <p id="view-problem" style="margin-bottom: 1rem;"></p>
+              <h4 style="color: var(--accent-primary); margin-bottom: 0.35rem; font-size: 0.95rem;">Proposta de Valor da Solução</h4>
+              <p id="view-value"></p>
+            </div>
+          </section>
+
+          <!-- 2. KPIs -->
+          <section id="sec-kpis" class="prd-section">
+            <h3 class="section-heading"><span>2.</span> Métricas de Sucesso e Impacto (KPIs)</h3>
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Métrica / Indicador</th>
+                    <th>Baseline Atual</th>
+                    <th>Meta (Target)</th>
+                    <th>Janela de Avaliação</th>
+                  </tr>
+                </thead>
+                <tbody id="kpi-table-body"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- 3. Personas -->
+          <section id="sec-personas" class="prd-section">
+            <h3 class="section-heading"><span>3.</span> Personas Mapeadas</h3>
+            <div id="personas-container"></div>
+          </section>
+
+          <!-- 4. Requisitos Funcionais com MoSCoW -->
+          <section id="sec-requirements" class="prd-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+              <h3 class="section-heading" style="margin-bottom: 0; border-bottom: none;"><span>4.</span> Requisitos Funcionais & Critérios BDD</h3>
+              
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <label for="moscow-filter" style="font-size: 0.8rem; color: var(--text-muted);">Filtrar Prioridade:</label>
+                <select id="moscow-filter" class="select-input">
+                  <option value="all">Todos os Requisitos</option>
+                  <option value="must">Must Have (Essenciais)</option>
+                  <option value="should">Should Have (Importantes)</option>
+                  <option value="could">Could Have (Desejáveis)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th style="width: 80px;">ID</th>
+                    <th style="width: 100px;">Prioridade</th>
+                    <th>Requisito & Descrição</th>
+                    <th>Critério de Aceite (Gherkin/BDD)</th>
+                  </tr>
+                </thead>
+                <tbody id="req-table-body"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- 5. Requisitos Não Funcionais -->
+          <section id="sec-rnf" class="prd-section">
+            <h3 class="section-heading"><span>5.</span> Requisitos Não Funcionais (RNF)</h3>
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th style="width: 140px;">Dimensão</th>
+                    <th style="width: 90px;">ID</th>
+                    <th>Especificação Técnica</th>
+                    <th>Critério de Teste / SLA</th>
+                  </tr>
+                </thead>
+                <tbody id="rnf-table-body"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- 6. Telas Preview -->
+          <section id="sec-wireframes-preview" class="prd-section">
+            <h3 class="section-heading"><span>6.</span> Mapeamento das Telas Conforme Wireframe Físico</h3>
+            <div id="wireframes-container" class="wireframe-container"></div>
+          </section>
+
+        </article>
+      </div>
+    </div>
+
+    <!-- ABA 2: TELAS & WIREFRAMES -->
+    <div id="tab-wireframes" class="tab-content">
+      <div class="doc-view-card">
+        <h3 class="section-heading">🎨 Do Bloco de Notas à Interface de Produção</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+          Compare os wireframes concebidos à mão no caderno com a especificação funcional detalhada de cada componente.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+          
+          <div class="wireframe-card" style="border-left: 4px solid var(--accent-primary);">
+            <div class="wireframe-header">
+              <span>Home Screen & Search</span>
+              <span class="badge badge-status">Tela 01</span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">
+              Acesso inicial com logo superior, campo de busca em tempo real e menu de atalhos em cascata.
+            </p>
+            <div class="mockup-screen" style="min-height: 220px;">
+              <div style="background: var(--bg-tertiary); padding: 6px; border-radius: 4px; display: flex; justify-content: space-between;">
+                <span>☰ TaskMaster</span>
+                <span>🔍 Buscar...</span>
+              </div>
+              <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
+                <div style="padding: 6px; background: rgba(56, 189, 248, 0.1); border-left: 3px solid var(--accent-primary);">📁 Projetos Ativos</div>
+                <div style="padding: 6px; background: var(--bg-tertiary);">⚡ Tarefas de Hoje</div>
+                <div style="padding: 6px; background: var(--bg-tertiary);">📊 Relatórios de Sprint</div>
+              </div>
+              <div class="mock-btn" style="margin-top: auto;">Abrir Menu Lateral</div>
+            </div>
+          </div>
+
+          <div class="wireframe-card" style="border-left: 4px solid #818cf8;">
+            <div class="wireframe-header">
+              <span>Project Dashboard</span>
+              <span class="badge badge-status">Tela 02</span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">
+              Grid dinâmico com 4 cards principais (Cards 1 a 4) e botão de ação global na base inferior.
+            </p>
+            <div class="mockup-screen" style="min-height: 220px;">
+              <div style="background: var(--bg-tertiary); padding: 4px 8px; border-radius: 4px;">🔍 Search cards...</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px;">
+                <div style="background: var(--bg-secondary); padding: 8px; border-radius: 4px; border: 1px solid var(--border-light);">
+                  <span style="color: var(--accent-primary); font-weight:700;"># Card 1</span>
+                  <div class="mock-bar short" style="margin-top: 4px;"></div>
+                </div>
+                <div style="background: var(--bg-secondary); padding: 8px; border-radius: 4px; border: 1px solid var(--border-light);">
+                  <span style="color: var(--accent-primary); font-weight:700;"># Card 2</span>
+                  <div class="mock-bar short" style="margin-top: 4px;"></div>
+                </div>
+                <div style="background: var(--bg-secondary); padding: 8px; border-radius: 4px; border: 1px solid var(--border-light);">
+                  <span style="color: var(--accent-primary); font-weight:700;"># Card 3</span>
+                  <div class="mock-bar short" style="margin-top: 4px;"></div>
+                </div>
+                <div style="background: var(--bg-secondary); padding: 8px; border-radius: 4px; border: 1px solid var(--border-light);">
+                  <span style="color: var(--accent-primary); font-weight:700;"># Card 4</span>
+                  <div class="mock-bar short" style="margin-top: 4px;"></div>
+                </div>
+              </div>
+              <div class="mock-btn" style="background: #818cf8; color:#fff;">+ New Project Card</div>
+            </div>
+          </div>
+
+          <div class="wireframe-card" style="border-left: 4px solid #c084fc;">
+            <div class="wireframe-header">
+              <span>Login & Autenticação</span>
+              <span class="badge badge-status">Tela 03</span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">
+              Fluxo simplificado com login social e preenchimento ágil sem recarregamento.
+            </p>
+            <div class="mockup-screen" style="min-height: 220px;">
+              <div style="text-align: center; font-weight: 700; margin-bottom: 6px;">[ Login Screen ]</div>
+              <div style="background: var(--bg-tertiary); padding: 6px; border-radius: 4px; margin-bottom: 4px;">usuario@exemplo.com</div>
+              <div style="background: var(--bg-tertiary); padding: 6px; border-radius: 4px; margin-bottom: 8px;">••••••••••••</div>
+              <div class="mock-btn" style="background: #c084fc; color:#fff;">Edit / Sign In</div>
+            </div>
+          </div>
+
+          <div class="wireframe-card" style="border-left: 4px solid var(--tag-could);">
+            <div class="wireframe-header">
+              <span>Settings Screen</span>
+              <span class="badge badge-status">Tela 04</span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">
+              Configurações com navegação de retorno (<-), opções de perfil e alternador de temas.
+            </p>
+            <div class="mockup-screen" style="min-height: 220px;">
+              <div style="font-weight:700; border-bottom: 1px solid var(--border-light); padding-bottom: 4px;">← Voltar ao Dashboard</div>
+              <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 4px;">
+                <div>> Perfil do Usuário</div>
+                <div>> Integração Git / API</div>
+                <div style="color: var(--accent-primary);">> Dark / Light Mode [Ativo]</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA 3: USER FLOW & ARQUITETURA -->
+    <div id="tab-flow" class="tab-content">
+      <div class="doc-view-card">
+        <h3 class="section-heading">🔀 User Flow & Diagrama de Arquitetura</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+          Representação visual da jornada descrita no caderno: <code>User Flow: Home -> Project -> Edit</code>
+        </p>
+
+        <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: var(--radius-md); font-family: var(--font-mono); font-size: 0.9rem; line-height: 1.8; overflow-x: auto;">
+          <div style="color: var(--accent-primary); font-weight: bold; margin-bottom: 0.5rem;">// FLUXO DE NAVEGAÇÃO COMPLETO (HAPPY PATH)</div>
+          <div>[ Início / Visitante ]</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;│</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;▼</div>
+          <div>[ 1. Tela de Login / Auth ] ──( Autenticado com Sucesso )──► [ 2. Project Dashboard ]</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├──► [ 3. Busca / Filtro em Tempo Real ]</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├──► [ 4. Criar / Editar Card (Edit Screen) ] ──► [ Persistência ]</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└──► [ 5. Configurações / Settings ] ──( ← Voltar )</div>
+        </div>
+
+        <div style="margin-top: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-light); padding: 1rem; border-radius: var(--radius-md);">
+            <h4 style="color: var(--accent-primary); margin-bottom: 0.5rem;">⚡ Regras de Negócio do Fluxo</h4>
+            <ul style="font-size: 0.88rem; color: var(--text-muted); padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.35rem;">
+              <li>Sessão expira após 7 dias de inatividade ou logout manual.</li>
+              <li>A criação de card exige pelo menos título com 3+ caracteres.</li>
+              <li>Busca é acionada a cada caractere com debounce de 150ms.</li>
+            </ul>
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-light); padding: 1rem; border-radius: var(--radius-md);">
+            <h4 style="color: var(--accent-primary); margin-bottom: 0.5rem;">🛡️ Rastreabilidade de Engenharia</h4>
+            <ul style="font-size: 0.88rem; color: var(--text-muted); padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.35rem;">
+              <li>Mapeado para REST API: <code>/api/v1/projects</code> e <code>/api/v1/tasks</code></li>
+              <li>Estado gerenciado com sincronização em cache local.</li>
+              <li>Pronto para integração CI/CD com suíte de testes E2E.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA 4: EDITOR & CUSTOMIZADOR -->
+    <div id="tab-edit" class="tab-content">
+      <div class="doc-view-card">
+        <h3 class="section-heading">✏️ Editor de PRD em Tempo Real</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+          Edite as seções do documento abaixo ou altere o JSON estruturado para gerar seu próprio PRD instantaneamente.
+        </p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+          <div>
+            <div class="editor-form-group">
+              <label for="edit-title">Título do Produto:</label>
+              <input id="edit-title" class="text-input" style="width: 100%;" type="text">
+            </div>
+
+            <div class="editor-form-group">
+              <label for="edit-subtitle">Subtítulo / Proposta de Valor:</label>
+              <input id="edit-subtitle" class="text-input" style="width: 100%;" type="text">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="editor-form-group">
+                <label for="edit-version">Versão:</label>
+                <input id="edit-version" class="text-input" style="width: 100%;" type="text">
+              </div>
+              <div class="editor-form-group">
+                <label for="edit-status">Status:</label>
+                <input id="edit-status" class="text-input" style="width: 100%;" type="text">
+              </div>
+            </div>
+
+            <div class="editor-form-group">
+              <label for="edit-author">Autor / Time:</label>
+              <input id="edit-author" class="text-input" style="width: 100%;" type="text">
+            </div>
+
+            <div class="editor-form-group">
+              <label for="edit-problem">Declaração do Problema:</label>
+              <textarea id="edit-problem" class="editor-textarea" rows="4"></textarea>
+            </div>
+
+            <div class="editor-form-group">
+              <label for="edit-value">Proposta de Solução:</label>
+              <textarea id="edit-value" class="editor-textarea" rows="4"></textarea>
+            </div>
+          </div>
+
+          <div>
+            <div class="editor-form-group">
+              <label for="edit-json">JSON Completo do PRD (Requisitos, KPIs, Telas):</label>
+              <textarea id="edit-json" class="editor-textarea" style="height: 380px; font-size: 0.8rem;"></textarea>
+            </div>
+
+            <button id="btn-save-editor" class="btn btn-primary" style="width: 100%; padding: 0.75rem;">
+              💾 Aplicar Alterações e Atualizar Visualizador
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA 5: GUIA METODOLÓGICO -->
+    <div id="tab-guide" class="tab-content">
+      <div class="doc-view-card">
+        <h3 class="section-heading">📘 Metodologia: Do Levantamento de Requisitos à Entrega</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-top: 1rem;">
+          <div style="background: var(--bg-tertiary); padding: 1.25rem; border-radius: var(--radius-md);">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">1️⃣</div>
+            <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">Elicitação & Descoberta</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">
+              Entrevistas qualitativas com usuários, identificação das reais dores e sketching rápido no papel (wireframes de baixa fidelidade).
+            </p>
+          </div>
+
+          <div style="background: var(--bg-tertiary); padding: 1.25rem; border-radius: var(--radius-md);">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">2️⃣</div>
+            <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">Priorização MoSCoW</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">
+              Separação cirúrgica entre o que é indispensável para o MVP (Must) e o que pode ser lançado em versões futuras (Should / Could / Won't).
+            </p>
+          </div>
+
+          <div style="background: var(--bg-tertiary); padding: 1.25rem; border-radius: var(--radius-md);">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">3️⃣</div>
+            <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">Critérios em BDD / Gherkin</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">
+              Eliminação de ambiguidades definindo critérios em formato <code>Dado que... Quando... Então...</code> prontos para automação de testes.
+            </p>
+          </div>
+
+          <div style="background: var(--bg-tertiary); padding: 1.25rem; border-radius: var(--radius-md);">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">4️⃣</div>
+            <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">Engenharia & Código</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">
+              Tradução dos wireframes e requisitos para endpoints REST, models de banco de dados e componentes React/Vue/Vanilla na IDE.
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: var(--radius-md);">
+          <strong>💡 Dica de Product Management:</strong> Um bom PRD é um documento vivo. Ele deve ser atualizado a cada ciclo de feedback e servir como a fonte única da verdade (Single Source of Truth) entre negócios, design e desenvolvimento.
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Notificação Toast -->
+  <div id="toast" class="toast">Notificação</div>
+
+  <script src="app.js"></script>
+</body>
+</html>
