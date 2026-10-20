@@ -1,93 +1,95 @@
 # 📋 Do Requisito à Solução: Documentação e PRD (Product Requirements Document)
 
-> Um projeto e ecossistema dedicado ao levantamento de requisitos, arquitetura de produto, elaboração de PRD interativo e ponte direta entre regras de negócio e engenharia de software.
+> Um ecossistema completo e agnóstico dedicado à engenharia de requisitos, elaboração estruturada de PRDs, prototipagem conceitual e ponte contínua entre regras de negócio e engenharia de software.
 
 ---
 
-## 🎯 Visão Geral do Projeto
+## 🧭 Guia Geral do Framework
 
-Transformar ideias abstratas ou demandas de negócio em especificações acionáveis para times de engenharia e design costuma ser o maior gargalo no ciclo de desenvolvimento de software.
+Transformar demandas de negócio ou anotações preliminares em especificações claras para times de produto, design e engenharia costuma ser o principal ponto de atrito em projetos de tecnologia.
 
-Este repositório entrega **a solução completa**:
-1. **Framework e Templates Oficiais de PRD** (Markdown & Estruturas de Engenharia de Produto).
-2. **Estudo de Caso Completo: "TaskMaster Pro"** (inspirado nos wireframes e fluxo de produto do caderno à IDE).
-3. **Aplicação Web Interativa (PRD Studio & Viewer)**:
-   - Gerador interativo de PRD em tempo real.
-   - Matriz de Rastreabilidade de Requisitos (RF, RNF, Regras de Negócio).
-   - Diagrama de Fluxo de Usuário (User Flows com visualizador interativo).
-   - Exportação direta em Markdown, JSON e modo de Impressão/PDF limpo.
-   - Exemplos pré-carregados (TaskMaster Pro e E-Commerce Checkout).
+Este projeto estabelece um fluxo de trabalho em 4 pilares:
+
+```text
+  [ 1. Elicitação ] ──► [ 2. Priorização ] ──► [ 3. Especificação ] ──► [ 4. Engenharia ]
+  Entrevistas &          Framework MoSCoW       PRD Estruturado        Endpoints REST &
+  Wireframes Rápidos     e Matriz RICE          e Critérios BDD        Componentes de UI
+```
+
+1. **Elicitação e Descoberta:** Identificação de personas, problemas reais e mapeamento de jornadas de usuário.
+2. **Priorização Racional:** Separação objetiva entre o escopo essencial para o MVP (*Must Have*) e itens evolutivos (*Should*, *Could*, *Won't Have*).
+3. **Especificação Verificável:** Construção de critérios de aceite no formato BDD/Gherkin (`Dado que... Quando... Então...`) eliminando ambiguidades.
+4. **Alinhamento com Engenharia:** Rastreabilidade direta com modelos de dados, endpoints e contratos de interface.
 
 ---
 
 ## 🏗️ Estrutura do Repositório
 
 ```text
-DocPRD/
+.
 ├── docs/
 │   ├── PRD-TEMPLATE.md            # Template mestre e reutilizável para novos produtos
-│   ├── CASE-TASKMASTER-PRO.md     # PRD completo e detalhado do TaskMaster Pro
-│   └── GUIA-LEVANTAMENTO-REQ.md   # Metodologia: Técnicas de elicitação, User Stories e MoSCoW
+│   ├── CASE-TASKMASTER-PRO.md     # Estudo de caso completo com wireframes e arquitetura
+│   └── GUIA-LEVANTAMENTO-REQ.md   # Metodologia de elicitação, User Stories e MoSCoW
 ├── web/
 │   ├── index.html                 # Aplicação Web: PRD Interactive Studio & Viewer
-│   ├── style.css                  # Design System moderno, dark/light mode e responsivo
-│   └── app.js                     # Motor interativo de geração, exportação e preview
-├── README.md                      # Documentação central do projeto
+│   ├── style.css                  # Design System moderno, responsivo e com Dark Mode
+│   └── app.js                     # Motor interativo de renderização, edição e exportação
+└── README.md                      # Este guia geral
 ```
 
 ---
 
-## 🚀 Como Testar Imediatamente
+## 🚀 Como Executar e Testar
 
-Você pode abrir a aplicação interativa de três maneiras práticas:
+A aplicação interativa funciona diretamente em qualquer navegador moderno, sem necessidade obrigatória de build ou instalação de dependências pesadas.
 
-### 1. Diretamente no Navegador
-Abra o arquivo [`web/index.html`](file:///c:/Users/RHUANDEMELOZANFIR/Documents/Github/DocPRD/web/index.html) em qualquer navegador moderno (Chrome, Edge, Firefox, Safari).
+### Opção 1: Execução Direta no Navegador
+Basta abrir o arquivo `web/index.html` com dois cliques ou através do seu navegador favorito (Chrome, Edge, Firefox ou Safari).
 
-### 2. Via Live Server / Mini Servidor HTTP Local
-Se preferir rodar via HTTP local:
+### Opção 2: Servidor HTTP Local (Recomendado)
+Para rodar com um servidor local leve:
+
 ```bash
-# Com Python
+# Utilizando Node.js (npx)
+npx serve web
+
+# Ou utilizando Python 3
 python -m http.server 8080 --directory web
-
-# Ou com npx serve
-npx -y serve web
 ```
-Depois acesse `http://localhost:8080`.
+
+Após iniciar, abra o endereço exibido no terminal (ex.: `http://localhost:8080` ou `http://localhost:3000`).
 
 ---
 
-## 💡 Conteúdo dos Guias e Especificações
+## 📚 Documentações e Recursos Inclusos
 
-- **[`docs/PRD-TEMPLATE.md`](file:///c:/Users/RHUANDEMELOZANFIR/Documents/Github/DocPRD/docs/PRD-TEMPLATE.md)**:
-  - 1. Sumário Executivo & Objetivos de Negócio (OKRs/KPIs)
-  - 2. Personas e Dores do Usuário
-  - 3. Escopo (In-Scope & Out-of-Scope)
-  - 4. Requisitos Funcionais (RF) com Critérios de Aceite (Gherkin/BDD)
-  - 5. Requisitos Não Funcionais (RNF: Performance, Segurança, Acessibilidade)
-  - 6. Fluxos de Navegação e Wireframes
-  - 7. Riscos, Dependências e Cronograma / Release Plan
+- **Template Mestre de PRD (`docs/PRD-TEMPLATE.md`)**:
+  Estrutura padronizada para novos produtos contendo Sumário Executivo, OKRs/KPIs, Personas, Escopo (In/Out), Requisitos Funcionais (RF) com BDD, Requisitos Não Funcionais (RNF) e Release Plan.
 
-- **[`docs/CASE-TASKMASTER-PRO.md`](file:///c:/Users/RHUANDEMELOZANFIR/Documents/Github/DocPRD/docs/CASE-TASKMASTER-PRO.md)**:
-  - Estudo de caso real mapeando exatamente as telas do wireframe físico (Home Screen, Project Dashboard, Login/Auth, Settings, User Flow) para endpoints de API, modelos de dados e matriz MoSCoW.
+- **Estudo de Caso Prático (`docs/CASE-TASKMASTER-PRO.md`)**:
+  Demonstração ponta a ponta da transição de wireframes desenhados à mão (Home, Login, Project Dashboard, Settings) para requisitos funcionais, critérios de teste e arquitetura de software.
 
-- **[`docs/GUIA-LEVANTAMENTO-REQ.md`](file:///c:/Users/RHUANDEMELOZANFIR/Documents/Github/DocPRD/docs/GUIA-LEVANTAMENTO-REQ.md)**:
-  - Metodologia de entrevistas com stakeholders, priorização RICE/MoSCoW e escrita de histórias de usuário eficazes.
+- **Guia de Engenharia de Requisitos (`docs/GUIA-LEVANTAMENTO-REQ.md`)**:
+  Manual de boas práticas para conduzir dinâmicas com stakeholders, técnicas de priorização e escrita de critérios verificáveis.
 
 ---
 
-## ✨ Funcionalidades da Aplicação Web (PRD Studio)
+## ✨ Recursos da Aplicação Web (PRD Studio)
 
-- ⚡ **Alternância Rápida de Casos de Estudo**: Carregue o caso pronto do *TaskMaster Pro* ou *Checkout Express* em 1 clique.
-- 📝 **Editor de Seções em Tempo Real**: Altere objetivos, métricas, personas e requisitos com renderização simultânea.
-- 📊 **Matriz de Priorização Dinâmica (MoSCoW)**: Visualize e filtre o que é *Must Have*, *Should Have*, *Could Have* e *Won't Have*.
-- 🗺️ **Mapeamento de Telas & Wireframes**: Integração dos fluxos desenhados e componentes de UI.
-- 💾 **Exportação Pronta para o GitHub / Confluence**:
-  - Exportar `.md` completo formatado.
-  - Exportar `.json` estruturado.
-  - Copiar para a Área de Transferência.
-  - Imprimir / Salvar como PDF profissional.
+- ⚡ **Alternância Dinâmica de Casos de Estudo**: Carregamento imediato de cenários de exemplo (TaskMaster Pro e Checkout Express).
+- 📝 **Editor Integrado em Tempo Real**: Atualização instantânea dos campos do documento e manipulação via JSON estruturado.
+- 🎯 **Filtro MoSCoW Interativo**: Visualização seletiva de requisitos por prioridade (*Must*, *Should*, *Could*).
+- 🎨 **Visualizador de Telas e Fluxos**: Mapeamento dos wireframes e fluxos de navegação da interface.
+- 📤 **Exportação Flexível**:
+  - Download direto do PRD em formato **Markdown (`.md`)**.
+  - Exportação dos dados estruturados em **JSON (`.json`)**.
+  - Cópia com um clique para a área de transferência (Clipboard).
+  - Folha de estilo otimizada para **Impressão e PDF**.
+- 🌓 **Modo Escuro / Modo Claro**: Alternância de tema com contraste acessível.
 
 ---
 
-Desenvolvido para transformar rascunhos e conversas em software de alta qualidade.
+## 📄 Licença
+
+Este projeto é disponibilizado sob a licença [MIT](https://opensource.org/licenses/MIT), livre para uso, estudo e adaptação em seus próprios projetos e produtos.
